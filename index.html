@@ -1,0 +1,29 @@
+<body>
+  <center>
+    <textarea style="width: 600px; height: 200px;"></textarea><br><br>
+    <button onclick="convert()">Click Me!</button>
+  </center>
+  <script>
+    function convert()
+    {
+      var cookiesTxt = '# Netscape HTTP Cookie File\n';
+      var json = document.getElementsByTagName("textarea")[0].value;
+      
+      var cookies = JSON.parse(json);
+  
+      for (i in cookies) {
+          var cookie = cookies[i];
+          parts = [cookie.domain, 
+                  (!cookie.hostOnly).toString().toUpperCase(),
+                  cookie.path,
+                  cookie.secure.toString().toUpperCase(),
+                  Math.floor(cookie.expirationDate) || 0,
+                  cookie.name,
+                  cookie.value];
+          line = parts.join('\t');
+          cookiesTxt += line + '\n';
+      }
+      document.getElementsByTagName("textarea")[0].value = cookiesTxt;
+    }
+  </script>
+</body>
